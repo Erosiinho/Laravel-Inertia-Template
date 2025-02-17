@@ -62,6 +62,10 @@ sail artisan migrate
 ### Starting Vite
 
 ```bash
+sail npm install
+```
+
+```bash
 sail npm run dev
 ```
 
