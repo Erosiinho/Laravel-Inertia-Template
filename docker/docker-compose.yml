@@ -1,0 +1,48 @@
+services:
+  trx_backend:
+    image: docker-hub.shine.lan/trx_backend:latest
+    env_file:
+      - .env
+    ports:
+      - 8000:80
+    volumes:
+      - storage:/var/www/html/storage
+    networks:
+      - trx_backend
+    depends_on:
+      - mariadb
+    labels:
+      - traefik.enable=false
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`${APP_DOMAIN:-localhost}`)
+      - traefik.http.services.app_${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=80
+  mariadb:
+    image: 'mariadb:11'
+    environment:
+        MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+        MYSQL_ROOT_HOST: '%'
+        MYSQL_DATABASE: '${DB_DATABASE}'
+        MYSQL_USER: '${DB_USERNAME}'
+        MYSQL_PASSWORD: '${DB_PASSWORD}'
+        MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    volumes:
+        - 'mysql:/var/lib/mysql'
+    networks:
+        - trx_backend
+    healthcheck:
+        test:
+            - CMD
+            - healthcheck.sh
+            - '--connect'
+            - '--innodb_initialized'
+        retries: 3
+        timeout: 5s
+
+networks:
+  trx_backend:
+    driver: bridge
+
+volumes:
+  storage:
+    driver: local
+  mysql:
+    driver: local

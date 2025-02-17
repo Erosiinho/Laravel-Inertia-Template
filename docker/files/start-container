@@ -1,0 +1,69 @@
+#!/bin/sh
+appDir=/var/www/html
+dtmkdir () {
+    if [ -e "$1" ]
+    then
+        echo "'$1' dir there already"
+    else
+        mkdir $1 -m 775
+        echo "'$1' dir created"
+    fi
+}
+dtln () {
+    if [ -L "$1" -o -e "$1" ]
+    then
+        echo "'$1' link there already"
+    else
+        if [ -e "$2" ]
+        then
+            ln -s $2 $3 > /dev/null 2>&1
+            echo "'$1' linked"
+        else
+            echo "'$2' does not exist, nothing to link"
+        fi
+    fi
+}
+dtrm () {
+    if [ -L "$1" ]
+    then
+        rm $1
+        echo "'$1' link deleted"
+    else
+        echo "'$1' link deleted already"
+    fi
+}
+
+cd $appDir
+
+# backend part
+dtmkdir bootstrap
+dtmkdir bootstrap/cache
+dtmkdir public
+dtmkdir storage
+dtmkdir storage/app
+dtmkdir storage/app/public
+dtmkdir storage/framework
+dtmkdir storage/framework/cache
+dtmkdir storage/framework/sessions
+dtmkdir storage/framework/views
+dtmkdir storage/logs
+
+chmod -Rf 775 storage
+chown -Rf www-data:www-data storage
+
+#dtrm public/storage
+#su -pc 'php artisan storage:link' www-data
+su -pc 'php artisan config:cache' www-data
+
+crond -f &
+if [ "$JOBS" = "true" ]; then
+    su -pc 'php artisan queue:work database &' www-data
+fi
+docker-php-entrypoint php-fpm &
+nginx -g "daemon off;" &
+
+# Wait for any process to exit
+wait -n
+
+# Exit with status of process that exited first
+exit $?

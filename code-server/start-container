@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+code-server --install-extension vue.volar \
+            --install-extension bmewburn.vscode-intelephense-client \
+            --install-extension porifa.laravel-intelephense \
+            --install-extension ms-vscode.vscode-typescript-next \
+            --install-extension ecmel.vscode-html-css \
+            --install-extension bradlc.vscode-tailwindcss \
+            --install-extension rokoroku.vscode-theme-darcula \
+            --install-extension mobalic.jetbrains-new-dark
+
+code-server --host 0.0.0.0 --port 8443 --auth none "$DEFAULT_WORKSPACE"

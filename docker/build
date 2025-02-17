@@ -1,0 +1,53 @@
+#!/bin/bash
+
+imageName=$1
+imageTag=$2
+dev=$3
+
+if [ -z "$dev" ]; then
+  dev=false
+fi
+
+readCount=0
+
+while [ -z "$imageName" ]; do
+
+  if [ $readCount -eq 10 ]; then
+    echo "Max allowed attempts exceeded, quit..."
+    exit 1
+  fi
+
+  if [ $readCount -eq 0 ]; then
+    echo -n "$readCount: Please input the image name : "
+  else
+    echo -n "$readCount: Please input a correct image name : "
+  fi
+
+  read imageName
+
+  readCount=$(($readCount + 1))
+
+done
+
+while [ -z "$imageTag" ]; do
+
+  if [ $readCount -eq 10 ]; then
+    echo "Max allowed attempts exceeded, quit..."
+    exit 1
+  fi
+
+  if [ $readCount -eq 0 ]; then
+    echo -n "$readCount: Please input the image tag : "
+  else
+    echo -n "$readCount: Please input a correct image tag : "
+  fi
+
+  read imageTag
+
+  readCount=$(($readCount + 1))
+
+done
+
+docker build -f Dockerfile --build-arg DEV="$dev" -t $imageName:$imageTag ..
+
+exit 0
