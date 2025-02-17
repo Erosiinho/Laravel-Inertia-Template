@@ -1,14 +1,12 @@
 services:
-  trx_backend:
-    image: docker-hub.shine.lan/trx_backend:latest
+  laravel:
+    image: '${APP_IMAGE}'
     env_file:
       - .env
-    ports:
-      - 8000:80
     volumes:
       - storage:/var/www/html/storage
     networks:
-      - trx_backend
+      - laravel
     depends_on:
       - mariadb
     labels:
@@ -27,7 +25,7 @@ services:
     volumes:
         - 'mysql:/var/lib/mysql'
     networks:
-        - trx_backend
+        - laravel
     healthcheck:
         test:
             - CMD
@@ -38,7 +36,7 @@ services:
         timeout: 5s
 
 networks:
-  trx_backend:
+  laravel:
     driver: bridge
 
 volumes:

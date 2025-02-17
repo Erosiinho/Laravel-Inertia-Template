@@ -1,6 +1,6 @@
 import {App} from "vue";
 import Lang from 'lang.js';
-import messages from '../lang/messages.json'
+import messages from '../Lang/messages.json'
 
 export enum TransMode {
     Unchanged = 0,
@@ -14,7 +14,7 @@ export interface TransReplacements {
 
 type WithPrefix<T extends string> = `${T}.${string}`;
 
-export type TransKey = WithPrefix<'strings' | 'trx' | 'validation' | 'auth'>
+export type TransKey = WithPrefix<'strings' | 'validation' | 'auth'>
 
 export interface Translate {
     (key: TransKey, replacements?: TransReplacements, mode?: TransMode): string

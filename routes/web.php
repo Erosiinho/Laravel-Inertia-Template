@@ -1,13 +1,9 @@
 <?php
-
-use App\Http\Controllers\OrganizationController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
-Route::middleware(['auth'])->group(function () {
-    //
+Route::get('/', function() {
+    return Inertia::render('Dashboard/index');
 });
 
 require __DIR__.'/auth.php';

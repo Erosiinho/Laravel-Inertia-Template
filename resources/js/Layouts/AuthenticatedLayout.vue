@@ -38,7 +38,7 @@ const showingNavigationDropdown = ref(false);
                                     :active="route().current('dashboard')"
                                     class="text-white"
                                 >
-                                    {{ $trans('trx.organizations') }}
+                                    Dashboard
                                 </NavLink>
                             </div>
                         </div>
@@ -77,7 +77,7 @@ const showingNavigationDropdown = ref(false);
                                             method="post"
                                             as="button"
                                         >
-                                            {{ $trans('trx.logout') }}
+                                            Logout
                                         </DropdownLink>
                                     </template>
                                 </Dropdown>
@@ -140,7 +140,7 @@ const showingNavigationDropdown = ref(false);
                             :href="route('dashboard')"
                             :active="route().current('dashboard')"
                         >
-                            {{ $trans('trx.organizations') }}
+                            Dashboard
                         </ResponsiveNavLink>
                     </div>
 
@@ -165,7 +165,7 @@ const showingNavigationDropdown = ref(false);
                                 method="post"
                                 as="button"
                             >
-                                {{ $trans('trx.logout') }}
+                                Logout
                             </ResponsiveNavLink>
                         </div>
                     </div>

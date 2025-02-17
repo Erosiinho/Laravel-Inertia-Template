@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
-            $table->bigInteger('organization_id')->unsigned()->nullable();
-            $table->foreign('organization_id')->references('id')->on('organizations')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
 

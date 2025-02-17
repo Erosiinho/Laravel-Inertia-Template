@@ -14,7 +14,6 @@ declare global {
                 name: string;
                 email: string;
                 admin: boolean;
-                organization_id: number;
                 created_at: Date;
                 updated_at: Date;
             };
