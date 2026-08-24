@@ -1,5 +1,32 @@
 # Laravel Inertia Template
 
+Template de démarrage pour des applications web basées sur **Laravel 11**, **Inertia.js** et **Vue 3** (TypeScript). Il fournit une base prête à l'emploi avec authentification, gestion de profil, tableau de bord et localisation, pour éviter de reconfigurer ces éléments à chaque nouveau projet.
+
+## Stack technique
+
+- **Backend** : Laravel 11 (PHP 8.2+), Laravel Sanctum
+- **Frontend** : Vue 3, Inertia.js, TypeScript, Tailwind CSS, Vite
+- **Authentification** : Laravel Breeze
+- **Routing frontend** : Ziggy (routes Laravel accessibles côté JS)
+- **Localisation** : `laravel-js-localization` / `lang.js`
+- **Environnement de dev** : Laravel Sail (Docker)
+
+## Fonctionnalités incluses
+
+- Authentification complète (connexion, inscription, mot de passe oublié, etc.) via Breeze
+- Gestion du profil utilisateur
+- Page de tableau de bord (Dashboard)
+- Traductions/localisation partagées entre PHP et JS
+- Environnement Docker prêt à l'emploi via Sail
+
+## Structure du projet
+
+- `app/` : code applicatif Laravel (contrôleurs, modèles, etc.)
+- `resources/js/Pages` : pages Inertia (Auth, Dashboard, Profile)
+- `resources/js/Components` : composants Vue réutilisables
+- `resources/js/Layouts` : layouts Vue (authentifié / invité)
+- `routes/` : définition des routes Laravel
+
 ## Before starting : Sail
 
 Sail is the tool we use to serve our application during development. This section shows the requirements to use it and how to use it to serve Laravel Inertia Template.
